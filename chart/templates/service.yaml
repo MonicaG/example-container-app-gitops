@@ -6,6 +6,6 @@ spec:
   selector:
     app: test-app
   ports:
-  - port: 6000
-    targetPort: 5050
-  type: LoadBalancer
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  type: {{ .Values.service.type }}

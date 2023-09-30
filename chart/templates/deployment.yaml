@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: example-container-app-deployment
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount}}
   selector:
     matchLabels:
       app: test-app
@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: test-app
-        imagePullPolicy: Always
-        image: ghcr.io/monicag/example-container-app/app:sha-14bd3b1
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 5050
+        - containerPort: {{ .Values.service.targetPort }}
