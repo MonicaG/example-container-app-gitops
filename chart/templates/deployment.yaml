@@ -21,7 +21,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-          - containerPort: {{ .Values.service.targetPort }}
+        - containerPort: {{ .Values.service.targetPort }}
         env:
           - name: APP_PORT
-            value: {{ .Values.service.targetPort }}
+            value: "{{ .Values.service.targetPort }}"
