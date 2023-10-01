@@ -20,7 +20,8 @@ podLabels: {}
 service:
   type: LoadBalancer
   port: 6000
-  targetPort: 5050
+  targetPort: 5051
+  name: example-container-app-service-pr
 
 extraEnv:
   app_word: apple
