@@ -25,3 +25,5 @@ spec:
         env:
           - name: APP_PORT
             value: "{{ .Values.service.targetPort }}"
+          - name: APP_WORD
+            value: "{{ .Values.extraEnv.app_word}}"
