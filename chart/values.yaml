@@ -19,7 +19,7 @@ podLabels: {}
 
 service:
   type: LoadBalancer
-  port: 6000
+  port: 6050
   targetPort: 5051
   name: example-container-app-service-pr
 
