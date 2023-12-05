@@ -7,7 +7,7 @@ image:
   repository: ghcr.io/monicag/example-container-app/app
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: sha-0d17862
+  tag: sha-d60ee90
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
