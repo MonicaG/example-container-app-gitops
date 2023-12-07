@@ -1,0 +1,16 @@
+name: Stuff to do when branch is deleted
+
+on:
+  delete:
+
+jobs:
+  stuff-job:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: What branch
+        run: |
+          echo "what is this"
+          echo ${github.event.ref}
+
