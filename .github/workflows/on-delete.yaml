@@ -12,5 +12,5 @@ jobs:
       - name: What branch
         run: |
           echo "what is this"
-          echo ${github.event.ref}
+          echo ${{ github.event.ref }}
 
