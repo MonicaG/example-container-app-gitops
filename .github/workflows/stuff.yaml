@@ -5,20 +5,13 @@ on:
     types: [synchronize, reopened, labeled]
    
   push:
-    branches: ["auto-updates/**"]
+    branches: ["auto-updates/example-container-app-pr-**"]
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true    
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - name: debug
-        run: |
-          echo "what was the action ${{github.event.action}}"
-          echo "event name ${{github.event_name}}"
   do-stuff:
     if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'push'
     runs-on: ubuntu-latest
