@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, labeled]
    
   push:
-    branches: ["auto-updates/example-container-app-pr-**"]
+    branches: ["auto-updates/**"]
 
 concurrency:
   group: ci-${{ github.ref }}
