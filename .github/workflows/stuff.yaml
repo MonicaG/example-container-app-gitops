@@ -1,0 +1,22 @@
+name: Do Stuff
+
+on:
+  pull_request:
+    types: [opened, reopened, labeled]
+   
+  push:
+    branches: ["auto-updates/example-container-app-pr-**"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
+
+jobs:
+  do-stuff:
+    if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event.action == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: my stuff
+        run: |
+          echo "This action did stuff!"
+
