@@ -1,11 +1,35 @@
 name: Stuff to do when branch is deleted
 
 on:
+  pull_request:
+    types: ["closed", "unlabeled"]=
   delete:
 
 jobs:
+
+should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          should_run=false
+          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'delete' }} ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+  
+  get-app-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN
+    uses: ./.github/workflows/get-app-name.yaml
+  
   stuff-job:
-    if: github.event.ref_type == 'branch'
+    
+    needs: [get-app-name, should-run]
+    if: needs.should-run.outputs.SHOULD_RUN
     runs-on: ubuntu-latest
 
     steps:
@@ -13,4 +37,5 @@ jobs:
         run: |
           echo "what is this"
           echo ${{ github.event.ref }}
+          echo "app name is ${{ needs.get-app-name.outputs.APP_NAME }}"
 
