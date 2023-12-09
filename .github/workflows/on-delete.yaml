@@ -23,13 +23,13 @@ jobs:
   
   get-app-name:
     needs: should-run
-    if: needs.should-run.outputs.SHOULD_RUN
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
     uses: ./.github/workflows/get-app-name.yaml
   
   stuff-job:
     
     needs: [get-app-name, should-run]
-    if: needs.should-run.outputs.SHOULD_RUN
+    if: needs.should-run.outputs.SHOULD_RUN == 'true'
     runs-on: ubuntu-latest
 
     steps:
