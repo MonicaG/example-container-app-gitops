@@ -18,6 +18,7 @@ jobs:
       - name: debug
         run: |
           echo "what was the action ${{github.event.action}}"
+          echo "event name ${{github.event_name}}"
   do-stuff:
     if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event.action == 'push'
     runs-on: ubuntu-latest
