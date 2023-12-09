@@ -23,4 +23,4 @@ service:
   targetPort: 5050
 
 extraEnv:
-  app_word: tree
+  app_word: snow
