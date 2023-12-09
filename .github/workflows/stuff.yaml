@@ -12,11 +12,33 @@ concurrency:
   cancel-in-progress: true    
 
 jobs:
+
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
+    steps:
+      - name: Check if this workflow should run
+        id: should_run
+        run: |
+          should_run=false
+          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'push' }} ; then
+            should_run=true
+          fi
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
+
+  get-app-name:
+    needs: should-run
+    if: needs.should-run.outputs.SHOULD_RUN
+    uses: ./.github/workflows/get-app-name.yaml
+
   do-stuff:
-    if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'push'
+    needs: [get-app-name, should-run]
+    if: needs.should-run.outputs.SHOULD_RUN
     runs-on: ubuntu-latest
     steps:
       - name: my stuff
         run: |
           echo "This action did stuff!"
+          echo "app name is ${{ needs.get-app-name.outputs.APP_NAME }}"
 

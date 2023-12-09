@@ -1,0 +1,33 @@
+name: Determine argcd app name
+
+on:
+  workflow_call:
+    outputs:
+      APP_NAME:
+        description: "The name for the app"
+        value: ${{ jobs.get-app-name.outputs.APP_NAME }}
+
+jobs:
+  get-app-name:
+    runs-on: ubuntu-latest
+    outputs:
+      APP_NAME: ${{ steps.get_name.outputs.APP_NAME }}
+    steps:
+      - name: Get name
+        id: get_name
+        run: |
+          app_name="app-name-"
+          if [[ ! -z  ${{ github.event.pull_request.number }} ]]; then
+            app_name+=${{ github.event.pull_request.number }}
+          else
+            pr_number=$(echo ${{ github.ref }} | sed -nr 's/^.*developer-portal-pr-([0-9]+)$/\1/p')
+            if [[ -n "$pr_number" ]]; then
+              app_name+="developer-portal-pr-"$pr_number
+            else
+              echo "Error: Could not get pr number from branch name"
+              exit 1
+            fi
+          fi
+          echo $app_name >> $GITHUB_OUTPUT
+
+
