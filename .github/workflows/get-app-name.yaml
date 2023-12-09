@@ -28,6 +28,6 @@ jobs:
               exit 1
             fi
           fi
-          echo $app_name >> $GITHUB_OUTPUT
+          echo "APP_NAME=$app_name" >> $GITHUB_OUTPUT
 
 
