@@ -2,12 +2,12 @@ name: Stuff to do when branch is deleted
 
 on:
   pull_request:
-    types: ["closed", "unlabeled"]=
+    types: ["closed", "unlabeled"]
   delete:
 
 jobs:
 
-should-run:
+  should-run:
     runs-on: ubuntu-latest
     outputs:
       SHOULD_RUN: ${{ steps.should_run.outputs.SHOULD_RUN }}
