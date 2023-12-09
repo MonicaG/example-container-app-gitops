@@ -2,7 +2,7 @@ name: Do Stuff
 
 on:
   pull_request:
-    types: [opened, reopened, labeled]
+    types: [synchronize, reopened, labeled]
    
   push:
     branches: ["auto-updates/**"]
