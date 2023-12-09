@@ -20,7 +20,7 @@ jobs:
           echo "what was the action ${{github.event.action}}"
           echo "event name ${{github.event_name}}"
   do-stuff:
-    if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event.action == 'push'
+    if: contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: my stuff
