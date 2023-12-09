@@ -20,7 +20,7 @@ jobs:
           if [ ! -z  ${{ github.event.pull_request.number }} ]; then
             app_name+=${{ github.event.pull_request.number }}
           else
-            pr_number=$(echo ${{ github.ref }} | sed -nr 's/^.*developer-portal-pr-([0-9]+)$/\1/p')
+            pr_number=$(echo ${{ github.ref }} | sed -nr 's/^.*example-container-app-pr([0-9]+)$/\1/p')
             if [ -n "$pr_number" ]; then
               app_name+="developer-portal-pr-"$pr_number
             else
