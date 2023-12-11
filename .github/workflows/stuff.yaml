@@ -4,8 +4,7 @@ on:
   pull_request:
     types: [synchronize, reopened, labeled]
    
-  push:
-    branches: ["auto-updates/example-container-app-pr-**"]
+  create:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -22,7 +21,7 @@ jobs:
         id: should_run
         run: |
           should_run=false
-          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') || github.event_name == 'push' }} ; then
+          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') || ( github.event_name == 'create' &&  contains(github.event.ref, vars.PR_BRANCH_NAME)) }} ; then
             should_run=true
           fi
           echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
