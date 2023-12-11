@@ -36,10 +36,12 @@ jobs:
     needs: [get-app-name, should-run]
     if: needs.should-run.outputs.SHOULD_RUN == 'true'
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
     steps:
       - name: my stuff
         run: |
           echo "This action did stuff!"
-          echo ${{ github.event.ref }}
+          echo ${{ env.BRANCH_NAME}}
           echo "app name is ${{ needs.get-app-name.outputs.APP_NAME }}"
 
