@@ -16,7 +16,7 @@ jobs:
         id: should_run
         run: |
           should_run=false
-          if ${{ contains(github.event.pull_request.labels.*.name, 'preview') || ( github.event_name == 'delete' &&  contains(github.event.ref, vars.PR_BRANCH_NAME)) }} ; then
+          if ${{ (github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview')) || ( github.event.action == 'unlabeled' && github.event.label.name == 'preview' )|| ( github.event_name == 'delete' &&  contains(github.event.ref, vars.PR_BRANCH_NAME)) }} ; then
             should_run=true
           fi
           echo "SHOULD_RUN=$should_run" >> "$GITHUB_OUTPUT"
