@@ -40,5 +40,6 @@ jobs:
       - name: my stuff
         run: |
           echo "This action did stuff!"
+          echo ${{ github.event.ref }}
           echo "app name is ${{ needs.get-app-name.outputs.APP_NAME }}"
 
